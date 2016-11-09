@@ -28,13 +28,14 @@ module.exports = {
 		loaders: [
 			// process all JavaScript files through the Babel preprocessor
 			// this enables support for all of ES2015 including modules
+			// stage-3 is needed for object spread
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader',
 				query: {
 					passPerPreset: true,
-					presets: ['react', 'es2015', 'stage-0']
+					presets: ['react', 'es2015', 'stage-3']
 				}
 			},
 			// processes JSON files, useful for config files and mock data
@@ -77,13 +78,13 @@ module.exports = {
 
 		// this one is a little complex to understand
 		// when app bundle code imports vendor bundle code, webpack will want to include the
-		// the vendor code in the app bundle, this makes sense when we think of webpack as a
+		// vendor code in the app bundle, this makes sense when we think of webpack as a
 		// bundler which bundles all imported code together
 		// but this is NOT what we want webpack to do
 		// instead, we want webpack to keep the three bundles separate, and once all are loaded
 		// in the web browser we trust it will all work, and all three will work together
 		// as expect
-		// so this plugin keeps the three bundle separated and does not put the code of one,
+		// so this plugin keeps the three bundles separated and does not put the code of one,
 		// in the code of another
 
 		// order of the names does matter

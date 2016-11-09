@@ -21,20 +21,21 @@ export const queryType = new GraphQLObjectType({
 		};
 		
 		const resourceFields = widgetType => {
-			var singularTypeName = widgetType.name.toLowerCase();
-			var pluralTypeName = pluralize(singularTypeName);
+			const singularTypeName = widgetType.name.toLowerCase();
+			const pluralTypeName = pluralize(singularTypeName);
 			return {
 				[pluralTypeName]: getAllField(widgetType, pluralTypeName),
 				[singularTypeName]: searchIdField(widgetType, pluralTypeName),
 			};
 		};
 
-		Object.assign(fields, resourceFields(widgetType));
-		Object.assign(fields, resourceFields(ownerType));
-		Object.assign(fields, resourceFields(bookType));
-		Object.assign(fields, resourceFields(authorType));
-
-		return fields;
+		return {
+			...fields,
+			...resourceFields(widgetType),
+			...resourceFields(ownerType),
+			...resourceFields(bookType),
+			...resourceFields(authorType),
+		};
 	}
 
 });
